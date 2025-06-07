@@ -266,6 +266,19 @@ server       | https            | bool             | Aktifkan protokol HTTPS (tr
 ```
 ---
 
+**Catatan Penting** 
+
+
+⚠️ Hak Akses Diperlukan
+
+Untuk menjalankan program ini, diperlukan akses sudo (Linux/macOS) atau Run as Administrator (Windows) baik ketika menggunakan client ataupun server, karena:
+
+    Program mengelola jaringan virtual atau proses dengan port tertentu.
+
+    Membuka koneksi gateway atau membuat binding terhadap alamat tertentu.
+
+    Mendownload dan Insatallasi Engine
+
 ## 🌍 Melihat koneksi Node
 
 Status Koneksi Tiap Node Bisa Diakses di :
