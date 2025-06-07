@@ -37,6 +37,10 @@
 			"timeout":30.0
 		}
     },
+	"database":{
+		"host":"",
+		"source":""
+	},
     "routes": {
         "modul_name": "Routes.routes",
         "class_name": "Routes",

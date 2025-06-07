@@ -34,6 +34,43 @@ class Routes:
 			"connection", "keep-alive", "proxy-authenticate", "proxy-authorization",
 			"te", "trailers", "transfer-encoding", "upgrade"
 		}
+		if not getattr(server, '_middleware_registered', False):
+			server._middleware_registered = True
+			@server.middleware("http")
+			async def log_requests(request: Request, call_next):
+				driver = kimin.loader.Load('driver')
+				urljoin = kimin.loader.Load('urljoin')
+				path = request.url.path
+				url = urljoin(kimin.parameter['cfg']['server']['expose']['url'], path)
+				header = {kunci:isi for kunci, isi in request.headers.items() if kunci.lower() not in kimin.excluded_header}
+				body = await request.body()
+				try:
+					async with driver.AsyncClient(follow_redirects=True) as client:
+						respon = await client.request(
+							method=request.method,
+							url=url,
+							headers=header,
+							content=body,
+							params=request.query_params,
+							cookies=request.cookies,
+							timeout=kimin.parameter['cfg']['server']['expose']['timeout']
+						)
+				except driver.TimeoutException:
+					return Response(content=f"Tidak Bisa Mengakses Localhost", status_code=504)
+				except driver.RequestError as e:
+					if 'log' in kimin.parameter['cfg'] and 'show_log' in kimin.parameter['cfg']['log'] and kimin.parameter['cfg']['log']['show_log']:
+						ext = kimin.loader.Load('ext')
+						ext(loader=kimin.loader).Log(kimin.parameter['cfg']['log']['path'])
+					return Response(content=f"Bad Gateway : {str(e)}", status_code=502)
+				except Exception as e:
+					if 'log' in kimin.parameter['cfg'] and 'show_log' in kimin.parameter['cfg']['log'] and kimin.parameter['cfg']['log']['show_log']:
+						ext = kimin.loader.Load('ext')
+						ext(loader=kimin.loader).Log(kimin.parameter['cfg']['log']['path'])
+					return Response(content=f"Error Yang Belum Di Handle : {str(e)}", status_code=500)
+				respon_header = {kunci:isi for kunci, isi in respon.headers.items() if kunci.lower() not in kimin.excluded_header}
+				if 'set-cookie' in respon.headers:
+					respon_header['set-cookie'] = respon.headers['set-cookie']
+				return Response(content=respon.content, status_code=respon.status_code, headers=respon_header,  media_type=respon.headers.get("content-type"))
 	
 	async def OnExit(kimin):
 		print("Server Dimatikan Secara Normal!!")
@@ -98,39 +135,6 @@ class Routes:
 			kimin.parameter['temp_func']['forwarding']['pid'].wait(timeout=5)
 		os = kimin.loader.Load('os')
 		os.kill(os.getpid(), signal.SIGTERM)
-		
 	
-	async def Utama(kimin, path, request: Request):
-		driver = kimin.loader.Load('driver')
-		url = f"{kimin.parameter['cfg']['server']['expose']['url']}/{path}"
-		header = {kunci:isi for kunci, isi in request.headers.items() if kunci.lower() not in kimin.excluded_header}
-		
-		body = await request.body()
-		try:
-			async with driver.AsyncClient(follow_redirects=True) as client:
-				respon = await client.request(
-					method=request.method,
-					url=url,
-					headers=header,
-					content=body,
-					params=request.query_params,
-					cookies=request.cookies,
-					timeout=kimin.parameter['cfg']['server']['expose']['timeout']
-				)
-		except driver.TimeoutException:
-			return Response(content=f"Tidak Bisa Mengakses Localhost", status_code=504)
-		except driver.RequestError as e:
-			if 'log' in kimin.parameter['cfg'] and 'show_log' in kimin.parameter['cfg']['log'] and kimin.parameter['cfg']['log']['show_log']:
-				ext = kimin.loader.Load('ext')
-				ext(loader=kimin.loader).Log(kimin.parameter['cfg']['log']['path'])
-			return Response(content=f"Bad Gateway : {str(e)}", status_code=502)
-		except Exception as e:
-			if 'log' in kimin.parameter['cfg'] and 'show_log' in kimin.parameter['cfg']['log'] and kimin.parameter['cfg']['log']['show_log']:
-				ext = kimin.loader.Load('ext')
-				ext(loader=kimin.loader).Log(kimin.parameter['cfg']['log']['path'])
-			return Response(content=f"Error Yang Belum Di Handle : {str(e)}", status_code=500)
-		respon_header = {kunci:isi for kunci, isi in respon.headers.items() if kunci.lower() not in kimin.excluded_header}
-		if 'set-cookie' in respon.headers:
-			respon_header['set-cookie'] = respon.headers['set-cookie']
-		
-		return Response(content=respon.content, status_code=respon.status_code, headers=respon_header)
+	def Utama(kimin):
+		return

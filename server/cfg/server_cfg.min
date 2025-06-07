@@ -23,7 +23,8 @@
         "template_path": "tampilan",
 		"cf_token":"<<token_cloudflare>>",
 		"zone_name":"<<domain_yang_dipilih>>",
-		"interval_check":60
+		"interval_check":60,
+		"public_ip":"<<public_ip>>"
 		
     },
     "routes": {

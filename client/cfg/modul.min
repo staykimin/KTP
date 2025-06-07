@@ -24,6 +24,13 @@
 	{
 		"folder": "",
 		"file": [],
+		"module": "urllib.parse",
+		"function_name": "urljoin",
+		"alias": ""
+    },
+	{
+		"folder": "",
+		"file": [],
 		"module": "json",
 		"function_name": "",
 		"alias": ""

@@ -114,9 +114,9 @@ server {{
 	def format_bytes(kimin, data):
 		if data < 1024:
 			return f"{data} B"
-		elif bytes_count < 1024 ** 2:
+		elif data < 1024 ** 2:
 			return f"{data / 1024:.2f} KB"
-		elif bytes_count < 1024 ** 3:
+		elif data < 1024 ** 3:
 			return f"{data / 1024 ** 2:.2f} MB"
 		else:
 			return f"{data / 1024 ** 3:.2f} GB"
@@ -194,7 +194,8 @@ server {{
 					if req_domain in [i['name'].split(f".{kimin.parameter['cfg']['server']['zone_name']}")[0] for i in dns['data']]:
 						hasil['error'] = 'Subdomain Already Exists!'
 						return hasil
-					add = await cc.AddDNSRecord(zone_id=kimin.parameter['temp_db']['zone_id'], type="A", name=req_domain, ip_address="103.189.235.209", ttl=1, proxy=True)
+					
+					add = await cc.AddDNSRecord(zone_id=kimin.parameter['temp_db']['zone_id'], type="A", name=req_domain, ip_address=kimin.parameter['cfg']['server']['public_ip'], ttl=1, proxy=True)
 					if not add['status']:
 						return hasil
 					config = {"address":address, "port":port, "id":add['data']['id'], 'domain':req_domain}
