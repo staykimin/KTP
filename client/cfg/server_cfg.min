@@ -1,0 +1,49 @@
+{
+    "system":{
+		"import_config":true,
+		"builder_log":false
+	},
+	"log":{
+		"show_log":true,
+		"path":"./",
+		"notif":{
+			"status":false,
+			"token":"",
+			"id_account":"",
+			"static_text":"⚠️ Terjadi Error ‼️ \n\n"
+		}
+	},
+	"gateway":{
+		"peers":[
+			{
+				"url":"tls://103.189.235.209:9001",
+				"endpoint":"ktp.kaf.web.id"
+			}
+		],
+		"admin_port":9001,
+		"req_domain":"test",
+		"engine":1
+	},
+	"server": {
+		"https":false,
+		"ws_host":"",
+        "port": 5758,
+        "host": "::",
+        "secret_key": "J2S-KAF-Server",
+        "static_path": "bin",
+        "template_path": "tampilan",
+		"expose":{
+			"url":"http://localhost:8000",
+			"timeout":30.0
+		}
+    },
+    "routes": {
+        "modul_name": "Routes.routes",
+        "class_name": "Routes",
+		"Utama":{
+			"url":"/{path:path}",
+			"methods":["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"],
+			"function": "Utama"
+		}
+	}
+}

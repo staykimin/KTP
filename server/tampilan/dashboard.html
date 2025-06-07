@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blockly Responsive IDE</title>
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    #blocklyDiv {
+      height: 100%;
+      width: 100%;
+    }
+    .sidebar-slide {
+      transition: transform 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden">
+
+  <!-- Mobile Header -->
+  <div class="md:hidden flex items-center justify-between p-2 bg-gray-800 text-white">
+    <button id="hamburger" class="text-2xl">\u2630</button>
+    <span class="text-xl font-bold">J2S</span>
+    <button id="outputToggle" class="text-2xl">\u25B6</button>
+  </div>
+
+  <!-- Layout Container -->
+  <div class="flex-1 flex flex-col md:flex-row-reverse relative overflow-hidden">
+
+    <!-- Sidebar (Right on desktop, hidden/slide-in on mobile) -->
+    <aside id="sidebar" class="absolute md:static top-0 left-0 w-64 bg-white border-r h-full z-30 transform -translate-x-full md:translate-x-0 sidebar-slide">
+      <div class="hidden md:flex items-center justify-center p-4 text-2xl font-bold text-blue-700">J2S</div>
+      <nav class="flex flex-col space-y-4 p-4">
+        <a href="#" class="text-gray-600 hover:text-blue-600">Dashboard</a>
+        <a href="#" class="text-gray-600 hover:text-blue-600">Project</a>
+        <a href="#" class="text-gray-600 hover:text-blue-600">Settings</a>
+      </nav>
+    </aside>
+
+    <!-- Output Panel -->
+    <aside id="output" class="absolute md:static right-0 top-0 w-full md:w-1/3 h-64 md:h-full bg-gray-100 border-t md:border-l z-30 transform translate-x-full md:translate-x-0 sidebar-slide">
+      <div class="p-4">Output Area</div>
+    </aside>
+
+    <!-- Blockly Workspace -->
+    <main class="flex-1 relative">
+      <div id="blocklyDiv" class="absolute inset-0"></div>
+      <xml id="toolbox" style="display: none">
+        <category name="Logic" colour="210">
+          <block type="controls_if"></block>
+          <block type="logic_compare"></block>
+        </category>
+        <category name="Loops" colour="120">
+          <block type="controls_repeat_ext"></block>
+        </category>
+        <category name="Math" colour="230">
+          <block type="math_number"></block>
+          <block type="math_arithmetic"></block>
+        </category>
+      </xml>
+    </main>
+
+  </div>
+
+  <script>
+    let workspace = null;
+
+    function initBlockly(position) {
+      if (workspace) workspace.dispose();
+      workspace = Blockly.inject('blocklyDiv', {
+        toolbox: document.getElementById('toolbox'),
+        toolboxPosition: position,
+        scrollbars: true,
+        trashcan: true,
+        zoom: {
+          controls: true,
+          wheel: true
+        }
+      });
+    }
+
+    function updateLayout() {
+      const isMobile = window.innerWidth < 768;
+      initBlockly(isMobile ? 'bottom' : 'top'); // Toolbox di bawah di mobile, atas di desktop
+    }
+
+    window.addEventListener('resize', updateLayout);
+    updateLayout();
+
+    const sidebar = document.getElementById('sidebar');
+    const output = document.getElementById('output');
+    const hamburger = document.getElementById('hamburger');
+    const outputToggle = document.getElementById('outputToggle');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('-translate-x-full');
+    });
+
+    outputToggle.addEventListener('click', () => {
+      output.classList.toggle('translate-x-full');
+    });
+  </script>
+</body>
+</html>

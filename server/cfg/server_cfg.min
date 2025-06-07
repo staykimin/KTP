@@ -1,0 +1,48 @@
+{
+    "system":{
+		"import_config":true,
+		"builder_log":false
+	},
+	"log":{
+		"show_log":true,
+		"path":"./",
+		"notif":{
+			"status":false,
+			"token":"<<token_bot_telegram>>",
+			"id_account":"<<id_akun_telegram>>",
+			"static_text":"⚠️ Terjadi Error ‼️ \n\n"
+		}
+	},
+	"server": {
+		"https":false,
+		"ws_host":"",
+        "port": 8000,
+        "host": "127.0.0.1",
+        "secret_key": "<<secret_key>>",
+        "static_path": "bin",
+        "template_path": "tampilan",
+		"cf_token":"<<token_cloudflare>>",
+		"zone_name":"<<domain_yang_dipilih>>",
+		"interval_check":60
+		
+    },
+    "routes": {
+        "modul_name": "Routes.routes",
+        "class_name": "Routes",
+		"Api":{
+			"url":"/api/{version}/{mode}",
+			"methods":["POST", "GET"],
+			"function": "API"
+		},
+		"Home":{
+			"url":"/",
+			"methods":["GET"],
+			"function": "Home"
+		},
+		"Node":{
+			"url":"/node",
+			"methods":["GET"],
+			"function": "Node"
+		}
+	}
+}

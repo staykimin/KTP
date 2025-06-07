@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="bg-gray-50 text-gray-800">
+	{% include 'navigasi/home.html' %}
+	<div kimin-data="block_content"></div>
+</div>
+<script>
+	var data = {{ data | tojson }};
+</script>
+<script src="/static/js/core.js" defer></script>
+{% endblock %}

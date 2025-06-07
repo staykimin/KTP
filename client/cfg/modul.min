@@ -1,0 +1,179 @@
+{
+	"modul": [
+	{
+		"folder": "",
+		"file": [],
+		"module": "os",
+		"function_name": "",
+		"alias": ""
+    },
+	{
+		"folder": "",
+		"file": [],
+		"module": "psutil",
+		"function_name": "",
+		"alias": ""
+    },
+	{
+		"folder": "",
+		"file": [],
+		"module": "shutil",
+		"function_name": "",
+		"alias": ""
+    },
+	{
+		"folder": "",
+		"file": [],
+		"module": "json",
+		"function_name": "",
+		"alias": ""
+    },
+	{
+		"folder": "",
+		"file": [],
+		"module": "datetime",
+		"function_name": "",
+		"alias": ""
+    },
+	{
+		"folder":"",
+		"file":[],
+		"module":"uuid",
+		"function_name":"",
+		"alias":""
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"time",
+		"function_name":"",
+		"alias":""
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"subprocess",
+		"function_name":"",
+		"alias":""
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"hashlib",
+		"function_name":"",
+		"alias":""
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"platform",
+		"function_name":"",
+		"alias":""
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"httpx",
+		"function_name":"",
+		"alias":"driver"
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"requests",
+		"function_name":"",
+		"alias":""
+	},
+	{
+		"folder": "",
+		"file": [],
+		"module": "colorama",
+		"function_name": "",
+		"alias": ""
+    },
+	{
+		"folder":"",
+		"file":[],
+		"module":"fastapi.responses",
+		"function_name":"JSONResponse",
+		"alias":"f_json"
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"fastapi.responses",
+		"function_name":"RedirectResponse",
+		"alias":"redirect"
+	},
+	{
+		"folder":"Utils",
+		"file":["Fowarding", "v1"],
+		"module":"Forwarding",
+		"function_name":"",
+		"alias":"forwarding"
+	},
+	{
+		"folder":"Utils",
+		"file":["Api", "api"],
+		"module":"API_Handler",
+		"function_name":"",
+		"alias":"api"
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"fastapi.middleware.cors",
+		"function_name":"CORSMiddleware",
+		"alias":"middle"
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"fastapi.staticfiles",
+		"function_name":"StaticFiles",
+		"alias":"static"
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"fastapi",
+		"function_name":"HTTPException",
+		"alias":"404"
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"fastapi.templating",
+		"function_name":"Jinja2Templates",
+		"alias":"template"
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"fastapi",
+		"function_name":"FastAPI",
+		"alias":"FI"
+	},
+	{
+		"folder":"",
+		"file":[],
+		"module":"starlette.middleware.sessions",
+		"function_name":"SessionMiddleware",
+		"alias":"session"
+	},
+	{
+		"folder": "Utils",
+		"file": ["Extension", "Ext"],
+		"module": "Ext",
+		"function_name": "",
+		"alias": "ext"
+    },
+	{
+		"folder":"",
+		"file":[],
+		"module":"FastApi_J2S.core_server",
+		"function_name": "Set_Server",
+		"alias":"server"
+	}
+  ]
+}
